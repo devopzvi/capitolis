@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: devopzvi/slack/slack-bot
+  repository: devopzvi/slack
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
