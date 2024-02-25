@@ -27,8 +27,8 @@ jobs:
         - name: docker steps
           run: |            
             docker login -u="${{ secrets.DOCKER_USER }}" -p="${{ secrets.DOCKER_PASS }}"
-            docker build -t ${{ secrets.IMAGE_NAME }} ./${{ secrets.DOCKERFILE_PATH }}
-            docker tag ${{ secrets.IMAGE_NAME }}:latest devopzvi/slack:${{ secrets.IMAGE_NAME }}:latest
-            docker push devopzvi/slack:${{ secrets.IMAGE_NAME }}:latest
+            docker build -t ${{ github.event.inputs.image-name }} ./${{ github.event.inputs.dockerfile-path }}
+            docker tag ${{ github.event.inputs.image-name }}:${{ github.event.inputs.tag }} devopzvi/slack:${{ github.event.inputs.image-name }}:${{ github.event.inputs.tag }}
+            docker push devopzvi/slack:${{ github.event.inputs.image-name }}:${{ github.event.inputs.tag }}
 
       
