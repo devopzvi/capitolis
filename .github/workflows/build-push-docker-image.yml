@@ -1,0 +1,34 @@
+name: build-push-docker-image
+
+on:
+  workflow_dispatch:
+    inputs:
+      dockerfile-path:
+        description: path to Dockerfile
+        type: string
+        required: true
+        default: ""
+      image-name:
+        description: image-name
+        type: string
+        required: true
+        default: ""
+      tag:
+        description: image-tag
+        type: string
+        required: true
+        default: ""
+
+jobs:
+  docker-build:
+      runs-on: self-hosted
+      steps:
+        - uses: actions/checkout@v3
+        - name: docker steps
+          run: |            
+          docker login -u="${{ secrets.DOCKER_USER }}" -p="${{ secrets.DOCKER_PASS }}"
+          docker build -t ${{ secrets.IMAGE_NAME }} ./${{ secrets.DOCKERFILE_PATH }}
+          docker tag ${{ secrets.IMAGE_NAME }}:latest devopzvi/slack:${{ secrets.IMAGE_NAME }}:latest
+          docker push devopzvi/slack:${{ secrets.IMAGE_NAME }}:latest
+
+      
