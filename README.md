@@ -9,11 +9,11 @@ For any change in main branch, the project will automatically trigger a CI that 
 ## Elaboration:
 
 - This project is derived from https://github.com/slackapi/template-slash-command-and-dialogs.
-- For the purpose of concept, a new slack workspace with dedicated channel was created as well as configurations inside slack-api.
+- For the purpose of concept, a new slack workspace with a dedicated channel was created as well as slack-api configurations.
 - Inside this repository you will find the following:
-  - A full helm chart of which contains a deployment that listens for calls to slack service.
-  - An Action that can be triggered manually: `build-push-docker-image`. This action builds new image versions and pushes to dockerhub: https://hub.docker.com/r/devopzvi/slack/tags
-  - Another action: `CI/CD Pipeline` of which is being triggered automatically in any push to main branch.
+  - A full helm chart of which contains a deployment with a pod that listens for calls to slack service.
+  - An Action that can be triggered manually: `build-push-docker-image`. This action builds a new image versions and pushes it to dockerhub: https://hub.docker.com/r/devopzvi/slack/tags
+  - Another action: `CI/CD Pipeline` of which being triggered automatically in any push to main branch.
 
 CI/CD Pipeline:
 - As this is a javascript project, this pipeline runs `npm` commands to build and test the code.
