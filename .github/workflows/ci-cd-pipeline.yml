@@ -1,0 +1,27 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-test-publish:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    - name: Install dependencies & check packages vulnerabilities
+      run: npm install
+    - name: Snyk test #Snyk can add another layer of finding code vulnerabilities.
+      run: snyk test --org=<organization-id> --project-name=<project-name> --json -d --severity-threshold=high
+    - name: Run tests
+      run: npm test
+    - name: helm build and push to registry 
+      run: |
+        helm repo add chartmuseum <chartmuseum.address>
+        helm lint .
+        helm package .
+        helm push *.tgz chartmuseum
+    - name: deploy to env
+      run: helm install <release_name> <chartmuseum-url>/<chart_name>
